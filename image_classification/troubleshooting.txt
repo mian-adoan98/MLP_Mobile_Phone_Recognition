@@ -1,0 +1,7 @@
+# Troubleshooting 
+
+# Problem 1: Continuous looping while downloading 
+issue: Failed to download //fls-eu.amazon.com.be/1/batch/1/OP/AMEN7PMS3EDWL:260-3657311-3529700:F8H8NVMGR03CXQ8ABKXA$uedata=s:%2Frd%2Fuedata%3Fstaticb%26id%3DF8H8NVMGR03CXQ8ABKXA:0: 
+No connection adapters were found for '//fls-eu.amazon.com.be/1/batch/1/OP/AMEN7PMS3EDWL:260-3657311-3529700:F8H8NVMGR03CXQ8ABKXA$uedata=s:%2Frd%2Fuedata%3Fstaticb%26id%3DF8H8NVMGR03CXQ8ABKXA:0'
+
+solution: in download_image() --> remove this url 
