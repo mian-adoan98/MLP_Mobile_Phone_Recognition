@@ -7,12 +7,14 @@
 # #
 
 from playwright.sync_api import sync_playwright
+from bs4 import BeautifulSoup
 import pandas as pd 
 import os 
 import requests
+import time
 
 # implement function for scraping images 
-# implement function 1: extracting images from url (CHECK)
+# (IMAGEs): implement function 1 --> extracting images from url (CHECK)
 
 def scrape_mobile_images(url: str) -> list: 
   with sync_playwright() as p: 
@@ -26,27 +28,42 @@ def scrape_mobile_images(url: str) -> list:
 
     # collect image urls
     image_urls = [img.get_attribute("src") for img in image_elements if img.get_attribute("src")]
+    browser.close()
     return image_urls
-    browser.close()
 
-# implement function 2 -> scraping labels from images 
-def scrape_mobile_labels(url: str) -> list: 
-  with sync_playwright() as p: 
-    browser = p.chromium.launch(headless=True)
-    page = browser.new_page()
 
-    # navigate to page with images
-    page.goto(url)
-    # exctract all images from selected page
-    label_elements = page.query_selector_all('span')
+# (LABELs): implement function 2 -> scraping labels from URLs
+mobile_labels = ["iphone", "samsung","oneplus","nokia","motorola", "xiaomi", "apple"]
 
-    # collect image urls
-    label_urls = [label.get_attribute("class") for label in label_elements if label.get_attribute("class")]
-    return label_urls
-    browser.close()
+def extract_mobile_labels(url: str) -> list: 
+  # define list --> all smartphone company brands
+  mobile_ = ["iphone", "samsung","oneplus","nokia","motorola", "xiaomi", "apple"]
+  labels = []
+  div_class = "a-section a-spacing-none a-spacing-top-small s-title-instructions-style"
+  label_class = "a-size-base-plus a-color-base a-text-normal"
+  
+  # create a request --> asking web for allowance of extracting page content
+  for attempt in range(3):
+    response = requests.get(url)
+    if response.status_code == 200:
+      page_content = response.text
+      # parse the content
+      soup = BeautifulSoup(page_content, "html.parser")
 
-# implement function 3 --> scraping price labels from smartphones
-def scrape_mobile_labels(url: str) -> list: 
+      # extract label data from page content
+      for item in soup.find_all("div", class_ = div_class):
+        label_tag = item.find("span", class_ = label_class)
+        label = label_tag.text.strip() if label_tag   else None 
+        labels.append(label)
+      break  # Exit loop if successful
+    else:
+      print(f"Failed to retrieve the Page. Status code: {response.status_code}")
+      time.sleep(1)  # Wait 1 second before retrying
+  return labels, url if not labels else None  # Return url if no labels are extracted
+
+
+# (PRICE): implement function 3 --> scraping price labels from smartphones
+def extract_mobile_price(url: str) -> list: 
   with sync_playwright() as p: 
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
@@ -61,13 +78,6 @@ def scrape_mobile_labels(url: str) -> list:
     return price_urls
     browser.close()
 
-# implement function 4: converting image urls into pandas dataframe (CHECK) (!!MOD)
-def url_dataframe(image_url): 
-  image_dict = {}
-  image_dict["Image_URL"] = image_url 
-  image_df = pd.DataFrame(image_dict)
-  return image_df 
-
 # implement function 5: downloading images from image urls after extracting it from weblink (CHECK)
 def download_images(image_urls: list, 
                     image_folder_dir: str): 
@@ -81,6 +91,7 @@ def download_images(image_urls: list,
 
   # implement iteration: download each image  
   for i, url in enumerate(image_urls):
+
     if not url.startswith(("http://", "https://")):
       print(f"Skipping invalid URL: {url}")
       continue 
@@ -107,7 +118,6 @@ def download_images(image_urls: list,
         # image_urls.remove(url)
 
 ## Problem 
-# 
 # function 5: unknown url causes infinite looping --> remove unknown url# 
 
 # function  5: removing invalid urls

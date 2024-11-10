@@ -1,5 +1,5 @@
 ## Virtual Environment
-venv/
+.venv/
 .idea/
 
 ## Big Data: images
@@ -10,4 +10,6 @@ oneplus/
 pixel_8/
 samsung/
 xiaomi/
+test_images/
+train_images/
 

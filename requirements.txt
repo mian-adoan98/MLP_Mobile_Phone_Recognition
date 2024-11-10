@@ -17,10 +17,22 @@ mobile phone images from:
   - oneplus
 
 ## Technology
-data visualisation: matplotlib, seaborn
-computer vision: opencv
-machine learning: tensorflow, scikit-learn, kerasAPI 
+data visualisation: matplotlib
+computer vision: opencv, PILl 
+machine learning: tensorflow(kerasapi), scikit-learn
 data processing and analysis: numpy, pandas
+data collection: requests, beautifulsoup, playwright
+model deployment: django
 
 ## Deep learning technology
 Convolutional Neural Network --> Model Building
+
+## Web Technology
+css-framework: Materialize 
+
+## Data Requirements: Features
+price
+brand_name
+images
+ratings
+num_ratings
