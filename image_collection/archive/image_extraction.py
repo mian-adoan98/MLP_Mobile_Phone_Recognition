@@ -2,7 +2,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By 
 import time 
-from tools_scraping_data import  download_images, extract_mobile_images
+from image_collection.data_extraction_tools import extract_mobile_images
+from image_collection.data_manipulation_tools import download_images
 # scrape_mobile_images,
 import numpy as np 
 

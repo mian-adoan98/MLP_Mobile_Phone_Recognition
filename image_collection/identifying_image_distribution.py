@@ -1,7 +1,7 @@
 # task 1: image collection 
 # describing distribution of images
-from tools_scraping_data import scrape_mobile_images, remove_invalid_urls
-from tools_scraping_data import download_images, validate_urls
+from image_collection.data_extraction_tools import scrape_mobile_images, remove_invalid_urls
+from image_collection.data_extraction_tools import validate_urls
 import os
 import numpy as np
 from concurrent.futures import ThreadPoolExecutor, as_completed
