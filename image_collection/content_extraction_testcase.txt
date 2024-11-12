@@ -5,9 +5,9 @@ Content that needed to be extracted:
 - brands(=labels)
 - price of the mobile phone
 
-# Test case 1(weblinks): 10 links     50 links    
+# Test case 1(weblinks): 10 links     50 links (v1)   50 links(v2)
   
-labels:                     150         786       
-image:                      170         886 -> reduction: 786
-diff:                       20          109
+labels:                     150         786           803
+image:                      170         786           801
+diff:                       20          0              0
 

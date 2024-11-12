@@ -1,4 +1,5 @@
 # task 1: image collection 
+# describing distribution of images
 from tools_scraping_data import scrape_mobile_images, remove_invalid_urls
 from tools_scraping_data import download_images, validate_urls
 import os

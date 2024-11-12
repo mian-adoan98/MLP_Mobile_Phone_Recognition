@@ -67,7 +67,7 @@ print(f"Failed links: {len(failed_links)}")
 print(failed_links)
 
 # save labels in mobile_label_file.txt
-mobile_label_file = "image_collection\\mobile_labels.txt"
+mobile_label_file = "image_collection\\mobile_labels2.txt"
 save_mobile_labels(mobile_label_file, mp_labels)
 
 # ------------------------------------------------------------------------------------------------------

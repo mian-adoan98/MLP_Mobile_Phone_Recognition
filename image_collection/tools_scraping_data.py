@@ -7,6 +7,12 @@
 # #
 
 from playwright.sync_api import sync_playwright
+from selenium import webdriver
+from selenium.webdriver.common.by import By 
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import playwright
 from bs4 import BeautifulSoup
 import pandas as pd 
 import os 
@@ -14,7 +20,7 @@ import requests
 import time
 
 # implement function for scraping images 
-# (IMAGEs): implement function 1 --> extracting images from url (CHECK)
+# (IMAGEs): implement function 1 --> extracting images from url (CHECK) (Option 1)
 
 def scrape_mobile_images(url: str) -> list: 
   with sync_playwright() as p: 
@@ -22,7 +28,11 @@ def scrape_mobile_images(url: str) -> list:
     page = browser.new_page()
 
     # navigate to page with images
-    page.goto(url)
+    try:
+      page.goto(url, timeout=60000)
+    except playwright._impl._errors.TimeoutError:
+      print(f"Timeout exceeded while trying to load {url}")
+
     # exctract all images from selected page
     image_elements = page.query_selector_all('img')
 
@@ -31,6 +41,38 @@ def scrape_mobile_images(url: str) -> list:
     browser.close()
     return image_urls
 
+# extract images from web links (Option 2)
+def extract_mobile_images(weblink: str) -> list:
+ # Set up Chrome options for headless mode and pop-up disabling
+  chrome_options = Options()
+  chrome_options.add_argument("--headless")  # Run in headless mode
+  chrome_options.add_argument("--disable-notifications")
+  chrome_options.add_argument("--disable-popup-blocking")
+  # set up webdriver 
+  driver = webdriver.Chrome(options=chrome_options)
+  driver.get(weblink)
+
+  # time.sleep(3)
+  # Wait for the page to load (adjust based on internet speed)
+  WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//img[@src]")))
+  
+  # locate all images elements
+  images = driver.find_elements(By.XPATH, "//img[@src]")
+
+  # extract image URLs
+  image_urls = []
+
+  for img in images: 
+    src = img.get_attribute("src")
+    if src and "media-amazon" in src: # only consider Amazon media URLS
+      image_urls.append(src)
+
+  # for idx, url in enumerate(image_urls):
+  #   print(f"Image {idx + 1}: {url}")
+  # close the browser 
+  driver.quit()
+
+  return image_urls
 
 # (LABELs): implement function 2 -> scraping labels from URLs
 mobile_labels = ["iphone", "samsung","oneplus","nokia","motorola", "xiaomi", "apple"]
