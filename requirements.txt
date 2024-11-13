@@ -32,7 +32,8 @@ css-framework: Materialize
 
 ## Data Requirements: Features
 price
-brand_name
-images
-ratings
-num_ratings
+brand_name  -> company: where the phone has been manufactured
+images      -> image file: contains mobile image content 
+model_name  -> model: the name of the mobile phone
+ratings     -> later
+num_ratings -> later 

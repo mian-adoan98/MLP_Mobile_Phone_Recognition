@@ -14,4 +14,12 @@ samsung/
 xiaomi/
 test_images/
 train_images/
+practice/images
+practice/images_test1
+practice/images_test2
+
+## Irrelevant files
+practice/
+project_update.txt
+requirements.txt
 
