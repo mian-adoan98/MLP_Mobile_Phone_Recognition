@@ -1,0 +1,12 @@
+# Project Update: 
+
+10-10-2024
+
+# image_extraction.py 
+
+- extracting images multiple times to get consistency in number of labels and images 
+- rename images 
+
+# tool_scraping_data.py 
+- increase timeout for reloading page 
+- import full playwright library for more dependencies
