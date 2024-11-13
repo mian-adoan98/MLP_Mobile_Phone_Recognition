@@ -7,7 +7,7 @@ Content that needed to be extracted:
 
 # Test case 1(weblinks): 10 links     50 links (v1)   50 links(v2)
   
-labels:                     150         786           803
-image:                      170         786           801
+labels:                     150         786           800
+image:                      170         786           800
 diff:                       20          0              0
 
