@@ -21,17 +21,6 @@ import os
 import requests
 import time
 
-# (WEBLINKS): implement function 0 --> extracting weblinks from resource files
-# extract weblinks from loaded resource file
-def extract_weblinks(filename:str) -> list: 
-  # define list --> store the weblink
-  weblink_list = []
-  # open the resource file
-  with open(filename, "r") as infile:
-    for link in infile: 
-      weblink_list.append(link)
-  return weblink_list
-
 # implement function for scraping images 
 # (IMAGEs): implement function 1 --> extracting images from url (CHECK) (Option 1)
 
@@ -92,7 +81,7 @@ mobile_labels = ["iphone", "samsung","oneplus","nokia","motorola", "xiaomi", "ap
 
 def extract_mobile_labels(url: str) -> list: 
   # define list --> all smartphone company brands
-  mobile_ = ["iphone", "samsung","oneplus","nokia","motorola", "xiaomi", "apple"]
+  mobile_labels = ["iphone", "samsung","oneplus","nokia","motorola", "xiaomi", "apple"]
   labels = []
   div_class = "a-section a-spacing-none a-spacing-top-small s-title-instructions-style"
   label_class = "a-size-base-plus a-color-base a-text-normal"
