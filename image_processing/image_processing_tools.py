@@ -39,7 +39,7 @@ def rename_images(directory: str, files: list):
   # Rename the files with zero-padding to ensure correct lexicographical order
   for idx, file in enumerate(sorted_files):
       # Construct the new file name with zero-padding (adjust padding if needed)
-      new_name = f"image_{idx + 1:03d}.jpg"  # This will ensure names like image_001.jpg, image_002.jpg, etc.
+      new_name = f"image_{idx:03d}.jpg"  # This will ensure names like image_001.jpg, image_002.jpg, etc.
 
       # Get the full file path
       old_path = os.path.join(directory, file)
@@ -49,6 +49,16 @@ def rename_images(directory: str, files: list):
       os.rename(old_path, new_path)
 
       print(f"Renamed '{file}' to '{new_name}'")
+
+# implement function 3 --> move images to other (version 2) (CONTINUE WORKING)(!!)
+def distribute_images(in_directory: str, 
+                      out_directory: str, 
+                      dataframe: pd.DataFrame):
+  # extract class folders into list: list
+  # pair the image item with its label: dict
+  # implement iteration: rearrange and distribute the images based on
+  # -> create the path name by joining image name
+  # -> #
 
 # Example usage
 # path = "D:/Machine_Learning/Portfolio_Project_Machine_Learning/Mobile_Phone_Recognition"
