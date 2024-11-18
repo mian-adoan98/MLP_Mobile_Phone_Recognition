@@ -17,6 +17,10 @@ train_images/
 practice/images
 practice/images_test1
 practice/images_test2
+datasets/images
+datasets/distributed_images
+datasets/source_images
+datasets/
 
 ## Irrelevant files
 practice/
