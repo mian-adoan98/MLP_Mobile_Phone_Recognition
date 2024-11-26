@@ -1,0 +1,41 @@
+# Webscraping Process
+
+source: https://www.amazon.com.be/s?i=electronics&rh=n%3A27862520031%2Cp_123%3A110955%7C146762%7C253649%7C329744%7C338933%7C46655&dc&fs=true&page=2&language=en&qid=1729202404&rnid=91049096031&ref=sr_pg_2 
+
+## Data for extraction 
+- Brand name of smartphone: Brand
+- Image of mobile phone: Image
+- Price of the smartphone: Price 
+- Ratings to a smartphone: Rating 
+
+## HTML-Tree Structure
+
+mobile image: 
+- tag: img
+- attribute: src
+- class: s-image
+- src: url-link of the image
+
+mobile labels: 
+- tag: span
+- attribute: class
+- class: a-size-base-plus a-color-base a-text-normal
+
+mobile star ratings 1: 
+child tag
+- tag: span
+- attribute: class
+- class: a-icon-alt
+
+parent tag
+- tag: i
+- attribute: class
+- class: a-icon (…)
+
+mobile user ratings 2:
+- tag: span
+- attribute: class (=a-size-base s-underline-text)
+
+mobile price: 
+- tag: span
+- attribute: class (=a-price)
