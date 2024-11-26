@@ -37,3 +37,10 @@ images      -> image file: contains mobile image content
 model_name  -> model: the name of the mobile phone
 ratings     -> later
 num_ratings -> later 
+
+## TASKS
+
+T1 Image Collection t1_image_collection
+T2 Image Processing t2_image_processing
+T3 Model Development  t3_model_development
+T4 Model Deployment t4_model_deployment
