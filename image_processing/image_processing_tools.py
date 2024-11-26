@@ -8,6 +8,7 @@ import numpy as np
 import requests
 import shutil
 from urllib.parse import urlparse
+from sklearn.model_selection import train_test_split
 
 # implement function 0 --> load collected files for processing
 def data_loading(directory: str, content_type: str) -> list:
@@ -89,69 +90,135 @@ def rename_images(directory: str, files: list):
 #   # -> create the path name by joining image name
 #   # -> #
 
-# implement function 3 (VERSION 2)
-def distribute_images(source_folder: str, 
-                      destination_folder: str, 
-                      df_file: str,
-                      update_train_size: int,
-                      update_test_size: int):
-  """
-  Distribute images into train, test, and validation folders based on their labels.
+# implement function 3 (VERSION 2) ------------------------------------------
+# def distribute_images(source_folder: str, 
+#                       destination_folder: str, 
+#                       df_file: str,
+#                       update_train_size: int,
+#                       update_test_size: int):
+#   """
+#   Distribute images into train, test, and validation folders based on their labels.
 
-  Parameters:
-  - source_folder (str): Path to the folder containing images.
-  - destination_folder (str): Path to the folder where images will be distributed.
-  - df_file (str): CSV file containing 'Image_file' and 'Company' columns.
-  """
-  # Ensure the destination folder exists
-  if not os.path.exists(destination_folder):
-    os.makedirs(destination_folder)
+#   Parameters:
+#   - source_folder (str): Path to the folder containing images.
+#   - destination_folder (str): Path to the folder where images will be distributed.
+#   - df_file (str): CSV file containing 'Image_file' and 'Company' columns.
+#   """
+#   # Ensure the destination folder exists
+#   if not os.path.exists(destination_folder):
+#     os.makedirs(destination_folder)
 
-  # Load the dataset
-  image_df = pd.read_csv(df_file)
-  image_labels = image_df[["Image_file", "Company"]].values  # Get image-label pairs
+#   # Load the dataset
+#   image_df = pd.read_csv(df_file)
+#   image_labels = image_df[["Image_file", "Company"]].values  # Get image-label pairs
 
-  # Shuffle the dataset for randomness
-  random.shuffle(image_labels)
+#   # Shuffle the dataset for randomness
+#   random.shuffle(image_labels)
 
-  # Split ratios
-  train_ratio = update_train_size
-  test_ratio = update_test_size  # Optionally include validation from test later
-  total_images = len(image_labels)
+#   # Split ratios
+#   train_ratio = update_train_size
+#   test_ratio = update_test_size  # Optionally include validation from test later
+#   total_images = len(image_labels)
 
-  train_size = int(total_images * train_ratio)
-  test_size = int(total_images * test_ratio)
-  # test_size = total_images - train_size
+#   train_size = int(total_images * train_ratio)
+#   test_size = int(total_images * test_ratio)
+#   # test_size = total_images - train_size
 
-  # Split the dataset into train and test
-  train_data = image_labels[:train_size]
-  test_data = image_labels[train_size:]
+#   # Split the dataset into train and test
+#   train_data = image_labels[:train_size]
+#   test_data = image_labels[train_size:]
 
-  # Prepare folders for train, test, and optionally validation
-  splits = {"train": train_data, "test": test_data}
-  for split in splits:
-    for _, label in splits[split]:  
-      class_folder = os.path.join(destination_folder, split, label)
-      if not os.path.exists(class_folder):
-        os.makedirs(class_folder)
+#   # Prepare folders for train, test, and optionally validation
+#   splits = {"train": train_data, "test": test_data}
+#   for split in splits:
+#     for _, label in splits[split]:  
+#       class_folder = os.path.join(destination_folder, split, label)
+#       if not os.path.exists(class_folder):
+#         os.makedirs(class_folder)
 
-  # Move images to respective folders
-  for split, data in splits.items():
-    for image_name, label in data:
-      source_path = os.path.join(source_folder, image_name)
-      dest_path = os.path.join(destination_folder, split, label, image_name)
+#   # Move images to respective folders
+#   for split, data in splits.items():
+#     for image_name, label in data:
+#       source_path = os.path.join(source_folder, image_name)
+#       dest_path = os.path.join(destination_folder, split, label, image_name)
 
-      if os.path.exists(source_path):  # Check if image exists
-        shutil.copy(source_path, dest_path)
-        print(f"Moved {image_name} to {os.path.join(split, label)}")
-      else:
-        print(f"Image {image_name} not found in source folder.")
+#       if os.path.exists(source_path):  # Check if image exists
+#         shutil.copy(source_path, dest_path)
+#         print(f"Moved {image_name} to {os.path.join(split, label)}")
+#       else:
+#         print(f"Image {image_name} not found in source folder.")
+# ------------------------------------------------------------------------------ REMOVE
+
+# Implement function 4: split images into train and test images
+def train_test_images(source_dir: str,
+                    destination_dir: str,
+                    img_dataframe: pd.DataFrame,
+                    test_size) -> tuple:
+  # Define directories for train and test folders 
+  train_dir = os.path.join(destination_dir, "train")
+  test_dir = os.path.join(destination_dir, "test")
+
+  # Define the image and labels from the image dataframe
+  images = img_dataframe["Image_file"].values
+  brand_labels = img_dataframe["Company"].values
+
+  # Ensure output directories exist
+  os.makedirs(train_dir, exist_ok=True)
+  os.makedirs(test_dir, exist_ok=True)
+
+  # Get list of all image files and its label
+  img_labels = [(image, label) for image, label in zip(images, brand_labels)]
+
+  # Split into training and testing sets
+  train_files, test_files = train_test_split(img_labels, test_size=test_size, random_state=42)
+  return train_files, test_files
+  # train_images = np.array(train_files)
+  # test_images = np.array(test_files)
+  # return train_images, test_images
+
+# Implement function 4: move files by labels
+def move_images(image_list: dict, source_folder: str,destination_folder: str):
+  for image_info in image_list:
+    src_path = os.path.join(source_folder, image_info["Image"])
+    dest_path = os.path.join(destination_folder, image_info["Image"])
+    
+    # Move the image
+    shutil.move(src_path, dest_path)
+
+def move_img_by_label(target_df: pd.DataFrame,
+                      label_df: pd.DataFrame,
+                      source_dir: str,
+                      target_dir: str,
+                      target: str
+                      ):
+
+  # Create a folder for training and testing set
+  if target == "train" or target == "test":
+    target_dir = os.path.join(target_dir, target)
+    os.makedirs(target_dir, exist_ok=True)
+  else:
+    print(f"Target path with target {target} cannot be considered.")
+
+  # Create label-specific subdirectories for train and test
+  for label in label_df.unique():
+    os.makedirs(os.path.join(target_dir, label), exist_ok=True)
+
+  # Move the images to the appropriate folder based on the split
+  # Move images to target folder
+  for index, row in target_df.iterrows():
+    image_item = row['Image']
+    image_path = os.path.join(source_dir, image_item)
+    label = row['Label']
+    dest_path = os.path.join(target_dir, label, os.path.basename(image_path))
+    shutil.copy(image_path, dest_path)
+
+  print("Data split complete!")
 
 # implement function 4: remove images from current folder 
 def remove_images(current_folder: str):
   # Clear the distributed folder
   if os.path.exists(current_folder):
-      shutil.rmtree(current_folder) 
+    shutil.rmtree(current_folder) 
 
 # implement function 5: determine number of images in a folder 
 def det_folder_size(sel_path: str) -> pd.DataFrame: 
