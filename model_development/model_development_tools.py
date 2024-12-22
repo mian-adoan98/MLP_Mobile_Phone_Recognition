@@ -1,25 +1,34 @@
 ## Model Development Tools 
 # 
+# Branch 1: Model Training
 # function 1: training the model 
 # function 2: data augmentation for training and testing sets 
-# function 3: visualise model performances #
+# function 3: visualise model performances 
+# 
+# Brand 2: Model Evaluation
+# function 1: visualise model's perforamnce #
+
 
 import pandas as pd
 import numpy as np  
 import tensorflow as tf 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from PIL import Image
 
+# ------------------------------------------------------- Model Training ----------------------------------------------
 
 # function 1: data augmentation for traing and testing images 
-def data_augmentation(train_path: str,
-                      test_path: str,
+def data_preprocessing(dataframe: pd.DataFrame,
+                      train_size: int,
                       rotation: int,
                       img_size: tuple, 
                       batch_size: int = 32
                       ) -> tuple: 
   
   # define constants: image size, number channels and color code
-  # img_size = (224, 224)
+  # Split dataset into training and testing set
+  train_df = dataframe.sample(frac=train_size, random_state=52)
+  test_df = dataframe.drop(train_df.index)
 
   # augment the training data
   train_datagen = ImageDataGenerator(
@@ -37,24 +46,29 @@ def data_augmentation(train_path: str,
   test_datagen = ImageDataGenerator(rescale=1./255)
 
   # create generator for training images
-  train_generator = train_datagen.flow_from_directory(
-    train_path,  # Directory with training images
-    target_size=(330, 330), # Resize all images to 224x224
-    batch_size=32,
+  train_generator = train_datagen.flow_from_dataframe(
+    dataframe=train_df,  # Dataframe with training images
+    x_col="Image_paths",
+    y_col="Class_names",
+    target_size=img_size, # Resize all images to 224x224
+    batch_size=batch_size,
     class_mode='categorical'
   )
 
   # create generator for testing images 
-  test_generator = test_datagen.flow_from_directory(
-    test_path,  # Directory with training images
-    target_size=(330, 330), # Resize all images to 224x224
-    batch_size=32,
+  test_generator = test_datagen.flow_from_dataframe(
+    dataframe=test_df, # Dataframe with testing images
+    x_col="Image_paths", 
+    y_col="Class_names",   
+    target_size=img_size, # Resize all images to 224x224
+    batch_size=batch_size,
     class_mode='categorical'
   )
 
   print(f"Shape of train images: {train_generator.image_shape}")
   print(f"Number of training samples: {train_generator.samples}")
   print(f"Number of test samples: {test_generator.samples}")
+
   return train_generator, test_generator
 
 
@@ -112,3 +126,70 @@ def augment_data( train_df, valid_df, test_df, batch_size=32):
   print("Shape of test images:", test_generator.image_shape)
           
   return train_generator, valid_generator, test_generator
+
+# implement function: resizing images (NOT UP-TO-DATE)
+def resize_images():
+
+  # Paths to your input and output directories
+  input_folder = "path/to/input_images"
+  output_folder = "path/to/output_images"
+
+  # Ensure the output folder exists
+  os.makedirs(output_folder, exist_ok=True)
+
+  # Desired size
+  new_size = (228, 228)
+
+  # Resize images
+  for index, file_name in enumerate(os.listdir(input_folder)):
+    if file_name.lower().endswith(('png', 'jpg', 'jpeg', 'bmp', 'gif')):  # Check for valid image files
+      input_path = os.path.join(input_folder, file_name)
+      output_path = os.path.join(output_folder, file_name)
+
+      # Open, resize, and save the image
+      with Image.open(input_path) as img:
+          resized_img = img.resize(new_size, Image.ANTIALIAS)  # Use ANTIALIAS for better quality
+          resized_img.save(output_path)
+
+      print(f"Resized image {index + 1}: {file_name} -> {output_path}")
+      if index + 1 == 10:  # Process only the first 10 images
+          break
+
+def model_training(train_folder: str, test_folder: str) -> tuple:
+  # Image parameters
+  image_size = (228, 228)
+  batch_size = 32
+
+  # Data augmentation and preprocessing for the training set
+  train_datagen = ImageDataGenerator(
+      rescale=1.0/255,          # Normalize pixel values (0-1 range)
+      rotation_range=20,        # Random rotation
+      width_shift_range=0.2,    # Horizontal shift
+      height_shift_range=0.2,   # Vertical shift
+      shear_range=0.2,          # Shear transformation
+      zoom_range=0.2,           # Random zoom
+      horizontal_flip=True,     # Random horizontal flip
+      fill_mode='nearest'       # Fill empty pixels
+  )
+
+  # Preprocessing for the testing set (no augmentation)
+  test_datagen = ImageDataGenerator(rescale=1.0/255)
+
+  # Create training data generator
+  train_generator = train_datagen.flow_from_directory(
+      train_folder,
+      target_size=image_size,
+      batch_size=batch_size,
+      class_mode='categorical'  # Use 'binary' for two classes
+  )
+
+  # Create testing data generator
+  test_generator = test_datagen.flow_from_directory(
+      test_folder,
+      target_size=image_size,
+      batch_size=batch_size,
+      class_mode='categorical'
+  )
+  return train_generator, test_generator
+
+# ---------------------------------------------------------- Model Evaluation --------------------------------------
