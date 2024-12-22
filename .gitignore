@@ -21,6 +21,7 @@ datasets/images
 datasets/distributed_images
 datasets/source_images
 datasets/
+model_development/images
 
 ## Irrelevant files
 practice/
