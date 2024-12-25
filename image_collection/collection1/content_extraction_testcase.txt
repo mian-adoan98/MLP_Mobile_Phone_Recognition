@@ -1,0 +1,13 @@
+## Test case: Content extraction
+
+Content that needed to be extracted:
+- mobile phone images 
+- brands(=labels)
+- price of the mobile phone
+
+# Test case 1(weblinks): 10 links     50 links (v1)   50 links(v2)
+  
+labels:                     150         786           800
+image:                      170         786           800
+diff:                       20          0              0
+
