@@ -1,0 +1,11 @@
+model_development
+|
+| --- model_training1.ipynb : training model for model1 : ConvNeuralNet model 
+| --- model_training2.ipynb : training model for model2: DeepNeuralNet model 
+| --- model_eval1.ipynb : evaluate model performance of model1 
+| --- model_eval2.ipynb : evaluate model performance of model2
+|
+| --- model_selection.py: selections of 3 models: ConvNeuralNet, DeepNeuralNet, ResNet
+| --- model_development_tools: functions for operating mechanism of different phases (data augmentation, resizing images, training model, visualise_performance)
+| 
+||

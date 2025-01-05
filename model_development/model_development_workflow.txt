@@ -1,0 +1,36 @@
+# Model Development Workflow
+
+1. Data Preparation (CHECK)
+3. Model Selection (CHECK)
+2. Model Training
+3. Model Evaluation
+4. Hyperparameter Tuning
+
+## Data Preparation
+- Data Augmentation
+- Image Processiong
+- Image Visualisation
+
+## Model Training
+- Transfer Learning
+- Building Neural Network Model: Convolutional Neural Network (CNN)
+- Training CNN on image data 
+
+## Model Evaluation
+- Selecting evaluation classification metrics for model performance 
+- Evaluating model's performance metrics: accuracy and loss
+- Analyse model performance 
+- Hyperparameter Tuning 
+- Error Analysis 
+
+## Experimentation --> Model Training
+
+# File Structure for Model Development
+
+1. Data Preparation       -> mobile_image_preparation.ipynb
+3. Model Selection        -> model.selection.py
+2. Model Training         -> model_training.ipynb
+3. Model Evaluation       -> model_evaluation.ipynb
+4. Hyperparameter Tuning   
+5. Model Deployment       -> mpic_model.pkl
+

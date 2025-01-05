@@ -1,0 +1,7 @@
+//fls-eu.amazon.com.be/1/batch/1/OP/AMEN7PMS3EDWL:257-1254092-7224935:1HB5AVBDRG5PWV8FA0SR$uedata=s:%2Frd%2Fuedata%3Fstaticb%26id%3D1HB5AVBDRG5PWV8F
+
+## Requirements of resources
+resource_page1: all amazon weblinks of 23 images                        12 links
+resource_page2: all smartphone images extracted from orange weblinks    26 links
+resource_page3: same as resource_page1                                  260 links (BEST CHOICE!!)
+

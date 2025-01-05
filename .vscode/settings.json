@@ -1,0 +1,9 @@
+{
+  "workbench.colorCustomizations": {
+    "scrollbarSlider.background": "#ffffff",
+    "scrollbarSlider.hoverBackground": "#ffffff6d",
+    /*Tabs*/
+    "tab.unfocusedHoverBackground": "#ffffff6d"
+  },
+  "git.ignoreLimitWarning": true
+}

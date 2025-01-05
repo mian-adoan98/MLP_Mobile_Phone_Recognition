@@ -1,0 +1,14 @@
+# Ignore virtual environment
+.venv/
+
+# Ignore image data
+data/
+mobile_phone_images/mobile_images
+model_development/images
+practice/images
+mobile_phone_images/mobile_images_v2
+mobile_phone_images/mobile_images_v3
+mobile_phone_images/test_images
+mobile_phone_images/train_images
+mobile_phone_images/validation_images
+mobile_phone_images/

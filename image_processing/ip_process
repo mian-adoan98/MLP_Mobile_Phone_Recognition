@@ -1,0 +1,10 @@
+## Image Processing: Processing
+
+- Loading images 
+- Rename images per mobile class label
+- Normalize the images
+
+Dependencies:
+- OpenCV
+- Imagehrd
+

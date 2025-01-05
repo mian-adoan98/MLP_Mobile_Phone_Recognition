@@ -1,0 +1,46 @@
+## Requirements
+Resources
+## link image webscraping 
+- orange weblink: https://www.orange.lu/en/smartphones/?device_brand=5443
+- amazon weblink: https://www.amazon.com.be/-/en/s?i=electronics&rh=n%3A27862520031%2Cp_123%3A110955%7C146762%7C329744%7C338933%7C46655&dc&fs=true&language=en&qid=1728339313&rnid=91049096031&ref=sr_nr_p_123_5&ds=v1%3AgO9ITbY27GiGtlO5Y0Ky%2BeW1wIFpSXrWqeL5%2BaZ024k
+- tutorial: https://www.youtube.com/watch?v=lLfqhqsuhE4&list=PLBw1ubD1J1UiNyE77U5hjmRSQi1Puc8OB&index=4 
+
+
+## Data
+img_class_project_planning
+mobile phone images from:
+  - iphone
+  - samsungs
+  - motorola
+  - lg
+  - nokia
+  - oneplus
+
+## Technology
+data visualisation: matplotlib
+computer vision: opencv, PILl 
+machine learning: tensorflow(kerasapi), scikit-learn
+data processing and analysis: numpy, pandas
+data collection: requests, beautifulsoup, playwright
+model deployment: django
+
+## Deep learning technology
+Convolutional Neural Network --> Model Building
+
+## Web Technology
+css-framework: Materialize 
+
+## Data Requirements: Features
+price
+brand_name  -> company: where the phone has been manufactured
+images      -> image file: contains mobile image content 
+model_name  -> model: the name of the mobile phone
+ratings     -> later
+num_ratings -> later 
+
+## TASKS
+
+T1 Image Collection t1_image_collection
+T2 Image Processing t2_image_processing
+T3 Model Development  t3_model_development
+T4 Model Deployment t4_model_deployment
