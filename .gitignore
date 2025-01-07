@@ -12,3 +12,5 @@ mobile_phone_images/test_images
 mobile_phone_images/train_images
 mobile_phone_images/validation_images
 mobile_phone_images/
+
+image_collection/collection1/images

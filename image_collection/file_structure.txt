@@ -1,0 +1,10 @@
+## Image Collection: File Structure
+
+- collection_n 
+|
+|   --- image_data
+|   --- dataset_n.csv
+|   --- image_extraction
+|   --- label_extraction
+
+
