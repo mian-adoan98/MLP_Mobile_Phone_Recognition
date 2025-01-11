@@ -1,0 +1,16 @@
+## Image Collection: File Structure
+
+- collection_n 
+|
+| --- images
+        | -- image1.jpg
+        | -- image2.jpg
+        | -- ...
+        | -- imageN.jpg
+
+| --- imagesN.csv
+| --- labelsN.csv
+| --- image_extraction.csv
+| --- label_extraction.csv
+
+

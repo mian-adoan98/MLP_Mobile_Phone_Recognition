@@ -14,3 +14,12 @@ mobile_phone_images/validation_images
 mobile_phone_images/
 
 image_collection/collection1/images
+
+# Ignore image data in collection 1
+image_collection/collection1/original_images
+image_collection/collection1/val_images
+
+# Ignore image data in collection 2
+image_collection/collection2/images
+# image_collection/collection2/original_images
+# image_collection/collection2/val_images
